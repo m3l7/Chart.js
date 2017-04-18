@@ -340,14 +340,8 @@ module.exports = function(Chart) {
 
 					// Ensure that our ticks are always inside the canvas. When rotated, ticks are right aligned which means that the right padding is dominated
 					// by the font height
-					if (me.labelRotation !== 0) {
-						me.paddingLeft = opts.position === 'bottom'? (cosRotation * firstLabelWidth) + 3: (cosRotation * lineSpace) + 3; // add 3 px to move away from canvas edges
-						me.paddingRight = opts.position === 'bottom'? (cosRotation * lineSpace) + 3: (cosRotation * lastLabelWidth) + 3;
-					} else {
-						me.paddingLeft = firstLabelWidth / 2 + 3; // add 3 px to move away from canvas edges
-						// me.paddingRight = lastLabelWidth / 2 + 3;
-						me.paddingRight = 0;
-					}
+					me.paddingLeft = 0;
+					me.paddingRight = 10;
 				} else {
 					// A vertical axis is more constrained by the width. Labels are the dominant factor here, so get that length first
 					// Account for padding
@@ -578,20 +572,26 @@ module.exports = function(Chart) {
 
 				// Common properties
 				var tx1, ty1, tx2, ty2, x1, y1, x2, y2, labelX, labelY;
-				var textAlign = 'middle';
-				var textBaseline = 'middle';
+				var textAlign = 'left';
+				var textBaseline = 'left';
 
 				if (isHorizontal) {
 
 					if (options.position === 'bottom') {
 						// bottom
 						textBaseline = !isRotated? 'top':'middle';
-						textAlign = !isRotated? 'center': 'right';
+						// textAlign = !isRotated? 'left': 'right';
+						if (index === 0) textAlign = 'left';
+						else if (index === me.ticks.length - 1) textAlign = 'right';
+						else textAlign = 'center';
 						labelY = me.top + tl;
 					} else {
 						// top
 						textBaseline = !isRotated? 'bottom':'middle';
-						textAlign = !isRotated? 'center': 'left';
+						// textAlign = !isRotated? 'left': 'left';
+						if (index === 0) textAlign = 'left';
+						else if (index === me.ticks.length - 1) textAlign = 'right';
+						else textAlign = 'center';
 						labelY = me.bottom - tl;
 					}
 
