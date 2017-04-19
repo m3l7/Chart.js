@@ -16,7 +16,7 @@ module.exports = function(Chart) {
 			drawBorder: true,
 			drawOnChartArea: true,
 			drawTicks: true,
-			tickMarkLength: 10,
+			tickMarkLength: 0,
 			zeroLineWidth: 1,
 			zeroLineColor: 'rgba(0,0,0,0.25)',
 			zeroLineBorderDash: [],
@@ -340,8 +340,8 @@ module.exports = function(Chart) {
 
 					// Ensure that our ticks are always inside the canvas. When rotated, ticks are right aligned which means that the right padding is dominated
 					// by the font height
-					me.paddingLeft = 0;
-					me.paddingRight = 10;
+					me.paddingLeft = 11;
+					me.paddingRight = 11;
 				} else {
 					// A vertical axis is more constrained by the width. Labels are the dominant factor here, so get that length first
 					// Account for padding
